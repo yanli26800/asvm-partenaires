@@ -60527,7 +60527,7 @@ o.push(new A.H4("R\xf4le",f))
 if(r)o.push(A.u(s.d.c+". Vous ne pouvez pas changer votre propre r\xf4le.",f,f,f,A.z().$3$color$fontSize$height(B.q,14,1.4),f,f,f))
 else{n=A.b([],c)
 for(m=s.d,k=0;k<3;++k){i=B.Cg[k]
-n.push(new A.eD(i.c,m===i,new A.aXT(g,b,i),f))}B.b.L(o,A.b([A.f0(B.aL,n,B.b8,8,8),B.at,A.u("La liaison d'un partenaire \xe0 sa fiche arrive dans la partie B.",f,f,f,A.z().$3$color$fontSize$height(B.q,14,1.4).bQ(13),f,f,f)],c))}o.push(B.ds)
+n.push(new A.eD(i.c,m===i,new A.aXT(g,b,i),f))}B.b.L(o,A.b([A.f0(B.aL,n,B.b8,8,8),B.at,A.u("Pour qu'un partenaire g\xe8re sa fiche, reliez-la \xe0 son compte depuis la fiche (Admin \u203a Fiches partenaires).",f,f,f,A.z().$3$color$fontSize$height(B.q,14,1.4).bQ(13),f,f,f)],c))}o.push(B.ds)
 o.push(new A.H4("Carte adh\xe9rent",f))
 n=A.dB(f,f,f,f,f,f,f,f,f,A.z().$3$color$fontSize$height(B.q,14,1.4),"Saison : ")
 m=s.w
