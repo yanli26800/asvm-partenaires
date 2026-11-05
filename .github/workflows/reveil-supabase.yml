@@ -1,0 +1,39 @@
+# Réveil de Supabase : sur l'offre gratuite, un projet sans activité pendant
+# 7 jours est mis en pause (l'appli ne marche plus). Supabase demande
+# « quelques requêtes par jour » à la base (FAQ du 27/10/2026) : deux par
+# semaine n'ont pas suffi (pause le 05/11/2026). Ce petit robot gratuit
+# (GitHub Actions) fait donc une requête à la base trois fois par jour.
+# Il est dans ce dépôt PUBLIC : les minutes GitHub Actions y sont gratuites
+# et illimitées, rien n'est décompté du forfait des dépôts privés.
+# Source : asvm-app/.github/workflows/reveil-supabase.yml
+#
+# L'adresse et la clé « publishable » sont écrites ici : ce ne sont pas des
+# secrets (elles sont déjà dans l'appli et dans la version web publique, et
+# la base est protégée par la RLS). Jamais la clé service_role ici.
+#
+# Lancement à la main possible : onglet Actions › Réveil Supabase › Run workflow.
+name: Réveil Supabase
+
+on:
+  schedule:
+    - cron: '17 5,13,21 * * *'   # tous les jours, vers 6 h, 14 h et 22 h (Paris)
+  workflow_dispatch:
+
+jobs:
+  reveil:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Requête à la base (liste des fiches libres)
+        env:
+          SUPABASE_URL: https://gzewkduwhstlnhwdtuhy.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_bDJ0E44JehDRyUv8J1bnmg_1Sbazjys
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            "$SUPABASE_URL/rest/v1/rpc/fiches_libres" \
+            -H "apikey: $SUPABASE_PUBLISHABLE_KEY" \
+            -H "Content-Type: application/json" -d '{}')
+          echo "Réponse de Supabase : $code"
+          # Échec visible (e-mail de GitHub) si la base ne répond pas : elle
+          # est peut-être en pause, à relancer depuis le tableau de bord.
+          test "$code" = "200"
